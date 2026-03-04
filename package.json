@@ -2,7 +2,9 @@
   "name": "wincoffee-fullstack",
   "private": true,
   "scripts": {
-    "build": "cd front && npm install && npm run build && cd ../back && npm install && npm run build",
+    "build:front": "npm --prefix front install && npm --prefix front run build",
+    "build:back": "npm --prefix back install && npm --prefix back run build",
+    "build": "npm run build:front && npm run build:back",
     "start": "node server.js"
   },
   "dependencies": {
