@@ -1,10 +1,10 @@
 const express = require("express");
 const next = require("next");
 const { NestFactory } = require("@nestjs/core");
-const { AppModule } = require("./backend/dist/app.module");
+const { AppModule } = require("./back/dist/app.module");
 
 const dev = false;
-const app = next({ dev, dir: "./frontend" });
+const app = next({ dev, dir: "./front" });
 const handle = app.getRequestHandler();
 
 async function bootstrap() {
