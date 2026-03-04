@@ -12,19 +12,20 @@ async function bootstrap() {
 
   const server = express();
 
-  // Levantar Nest dentro del mismo proceso
-  const nestApp = await NestFactory.create(AppModule);
+  // 🔥 Crear Nest usando el MISMO servidor Express
+  const nestApp = await NestFactory.create(AppModule, server);
   nestApp.enableCors({ origin: "*" });
   await nestApp.init();
 
-  server.use("/api", nestApp.getHttpAdapter().getInstance());
-
+  // NextJS maneja todo lo demás
   server.all("*", (req, res) => {
     return handle(req, res);
   });
 
-  server.listen(process.env.PORT || 3000, () => {
-    console.log("Servidor corriendo");
+  const PORT = process.env.PORT || 3000;
+
+  server.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
   });
 }
 
